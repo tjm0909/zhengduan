@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="shortcut icon" href="https://www.10086.cn/favicon.ico" type="image/x-icon">
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<title>不一致待派</title>
+	</head>
+	<style>
+		span {
+			font-size: 14px;
+		}
+	</style>
+	<body style="background-color:rgba(183,218,263);">
+		<div style="text-align: center;margin-top: 30px;">
+			<span>开始时间</span><input id="beginTime" type="date" />
+			<span>结束时间</span><input id="fendTime" type="date" /></br></br>
+			<button onclick="byz()">导出代派明细</button>
+		</div>
+		<script>
+			$(function() {
+				var start = document.getElementById("fendTime");
+				var start2 = document.getElementById("beginTime");
+				const now = new Date();
+				const year = now.getFullYear();
+				const month = now.getMonth() + 1; // 月份从0开始，需要加1
+				const day = now.getDate();
+				var dateString = year + "-" + month + "-" + day;
+				start.value = dateString;
+				start2.value = dateString;
+			})
+
+			function byz() {
+				var begin=$("#beginTime").val();
+				var fend=$("#fendTime").val();
+				var newStr1 = begin.replace(/-/g,"");
+				var newStr2 = fend.replace(/-/g,"");
+				var beginTime = newStr1;
+				var fendTime = newStr2;
+				var url =
+					"http://10.154.3.30:9990/report_eda/report/ydbb/fwgd_dpmx?roleId=658713&ztesoftshaohao%24005fbuttonId=el175&privCode=fwgd%24005fdp&reqSrc=iom&language=zh&listType=simpleType&v%24005ftype=2&ds=%24957f%246c99&is%24005fadmin=F&v%24005fbegin=" +
+					beginTime + "&pageIndex=1&v%24005fend=" + fendTime +
+					"&username=csdw%24005flilang&parentUrl=%24002freport%24005feda%24002freport%24002fydbb%24002ffwgd%24005fdp%24003fis%24005fadmin%24003dF%240026v%24005fbegin%24003d" +
+					beginTime + "%240026roleId%24003d658713%240026privCode%24003dfwgd%24005fdp%240026v%24005fend%24003d" +
+					fendTime +
+					"%240026reqSrc%24003diom%240026language%24003dzh%240026username%24003dcsdw%24005flilang%240026parentUrl%24003d%240026pageIndex%24003d1";
+				//window.location.href = url;
+				window.open(url);
+			}
+		</script>
+	</body>
+</html>
